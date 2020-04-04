@@ -1,0 +1,13 @@
+#postgres 11
+https://www.postgresql.org/download/
+#postgis
+https://postgis.net/install/
+
+#create db
+db name: supportseattledb
+password: sup00rtseattle
+
+
+--UBUNTU--
+sudo apt-get install binutils libproj-dev libgeos++ proj-bin libgdal20 python3-gdal libpq-dev
+sudo apt install postgis postgresql-11-postgis-2.5
