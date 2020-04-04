@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'carebackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+# TODO: Database connection for gcp
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -84,7 +84,7 @@ DATABASES = {
         'NAME' : 'supportseattledb',
         'USER': 'postgres',
         'PASSWORD': 'sup00rtseattle',
-        'HOST': 'localhost', #TODO: need to add azure
+        'HOST': 'localhost',
         'PORT': '5432' #postgres default port
     }
 }
