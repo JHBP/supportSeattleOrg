@@ -78,17 +78,38 @@ WSGI_APPLICATION = 'carebackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 # TODO: Database connection for gcp
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        # 'NAME': os.path.join(BASE_DIR, 'db'),
-        'NAME' : 'supportseattledb',
-        'USER': 'postgres',
-        'PASSWORD': 'sup00rtseattle',
-        'HOST': 'localhost',
-        'PORT': '5432' #postgres default port
+# [START db_setup]
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'HOST': '/cloudsql/supportseattle:us-central1:supportseattle-psql',
+            'USER': '',
+            'PASSWORD': '',
+            'NAME': '',
+        }
     }
-}
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            # 'NAME': os.path.join(BASE_DIR, 'db'),
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': '',
+            'USER': '',
+            'PASSWORD': '',
+        }
+    }
+# [END db_setup]
 
 
 # Password validation

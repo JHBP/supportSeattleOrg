@@ -1,6 +1,6 @@
-import django
 import sys
 import os
+import django
 sys.path.append(os.path.dirname(__file__) + '/..')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'carebackend.settings'
 django.setup()
@@ -15,7 +15,8 @@ def load_places_to_db(term = '', location = 'Seattle', offset = 0):
 
     # Get buinesses from Yelp
     result = yelp.query_api(term, location, offset)
-
+    if result == None:
+        return
     # using django-admin loaddata
     bz = jtc.json_to_csv("businesses",result)
 
@@ -28,6 +29,10 @@ def load_places_to_db(term = '', location = 'Seattle', offset = 0):
             p = Place.objects.get(place_id=row['place_id'])
         except Place.DoesNotExist:
             p = Place(place_id=row['place_id'])  
+        
+        # name, place_id, lat, lng, user_rating, num_ratings cannot be None
+        if 'None' in [row['name'] ,row['place_id'] ,row['lat'] ,row['lng'] ,row['user_rating'],row['num_ratings'] ]:
+            continue
 
         if not p.name:
             p.name = row['name']  
@@ -37,6 +42,7 @@ def load_places_to_db(term = '', location = 'Seattle', offset = 0):
         p.num_ratings = row['num_ratings']
         p.address = row['address']
         p.place_url = row['place_url']
+        p.image_url = row['image_url']
         p.place_types = row['place_types']
         p.save()
 

@@ -2,9 +2,6 @@
 supportseattle.org is a website that helps Seattle businesses to advertize their 
 
 ---
-## Frontend local deployment & testing
-Root of the backend guid is supportSeattleOrg/frontend/  
-T.B.W.
 ## Backend local deployment & testing
 
 Before following the guide, please check [python virtual environment](https://docs.python.org/3/library/venv.html) and [django documentation](https://docs.djangoproject.com/en/3.0/)
