@@ -22,8 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # TODO: Setup environment variable for Debug and Prod
 from .private_keys import DJANGO_SECRET_KEY as SECRET_KEY
-from .private_keys import GOOGLE_PLACE_KEY
-from .private_keys import YELP_API_KEY
+from .private_keys import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,10 +84,10 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'HOST': '/cloudsql/supportseattle:us-central1:supportseattle-psql',
-            'USER': '',
-            'PASSWORD': '',
-            'NAME': '',
+            'HOST': HOST,
+            'USER': USER,
+            'PASSWORD': PASSWORD,
+            'NAME': NAME
         }
     }
 else:
@@ -104,9 +103,9 @@ else:
             # 'NAME': os.path.join(BASE_DIR, 'db'),
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': '',
-            'USER': '',
-            'PASSWORD': '',
+            'USER': USER,
+            'PASSWORD': PASSWORD,
+            'NAME': NAME
         }
     }
 # [END db_setup]
