@@ -153,3 +153,4 @@ private_keys.py
 
 #vscode
 .vscode/
+*.code-workspace

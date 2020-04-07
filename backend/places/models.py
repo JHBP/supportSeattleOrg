@@ -36,13 +36,13 @@ class SubmittedPlace(models.Model):
     def __str__(self):
         return "%s at %s" % (self.place_name, self.place_rough_location)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): # pylint: disable=W0221
         if self.place_id:
             try:
                 self.matched_place = Place.objects.get(place_id=self.place_id)
             except Place.DoesNotExist:
                 pass
-        super(self.__class__, self).save(*args, **kwargs)
+        super(SubmittedPlace, self).save(*args, **kwargs)
 
 class Neighborhood(models.Model):
     name = models.TextField()
@@ -96,11 +96,11 @@ class Neighborhood(models.Model):
             "image": self.photo_url
         }
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):# pylint: disable=W0221
         if (self.lat and self.lng):
             self.geom = Point([float(x) for x in (self.lng, self.lat)], srid=4326)
 
-        super(self.__class__, self).save(*args, **kwargs)
+        super(Neighborhood, self).save(*args, **kwargs)
 
 
 class NeighborhoodEntry(models.Model):
@@ -203,10 +203,10 @@ class Place(models.Model):
     def __str__(self):
         return '%s (%s)' % (self.name, self.address)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):# pylint: disable=W0221
         from places.helper import check_link_against_blacklist
         if self.gift_card_url and not check_link_against_blacklist(self.gift_card_url):
             raise Exception("Bad Link Saved")
         if (self.lat and self.lng):
             self.geom = Point([float(x) for x in (self.lng, self.lat)], srid=4326)
-        super(self.__class__, self).save(*args, **kwargs)
+        super(Place, self).save(*args, **kwargs)

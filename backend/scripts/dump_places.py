@@ -6,7 +6,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'carebackend.settings'
 sys.path.append(os.path.dirname(__file__) + '/..')
 django.setup()
 from places.models import Place
-import pandas as pd
+#import pandas as pd
 fl = sys.argv[1]
 
 all_places = Place.objects.all()
@@ -14,9 +14,9 @@ all_json = [p.to_typeahead_json() for p in all_places]
 
 template = """
 
-const SFPlaces = 
+const SeattlePlaces = 
 %s;
-export default SFPlaces;
+export default SeattlePlaces;
 """ 
 
 with open(fl, 'w') as out:

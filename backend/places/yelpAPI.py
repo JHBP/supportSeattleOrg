@@ -136,7 +136,8 @@ def query_api(term = '', location = 'Seattle', offset = 0):
     
     businesses = response.get('businesses')
 
-    if not businesses and offset == 0 :
+    if not businesses:
+        print(f'Yel API Offset: {offset}')
         if term == '':
             print(f'No businesses in {location} found.')
         else:
